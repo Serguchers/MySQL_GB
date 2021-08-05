@@ -1,0 +1,1 @@
+select count(*), gender from profiles where user_id in (select user_id from likes l) group by gender;
