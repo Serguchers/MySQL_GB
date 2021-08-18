@@ -163,5 +163,6 @@ for each row
 	end//
 ~~~
 Мы не сможем вставить пользователя, не указав его группу.
+С полным скриптом триггеров можно ознакомиться [здесь](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/Процедуры%20и%20триггеры.sql).
 
 
