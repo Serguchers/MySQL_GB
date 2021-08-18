@@ -11,5 +11,14 @@
 
 ## Создание структуры БД ##
 Как уже было отмечено ранее, база данных состоит из 15 таблиц. Сперва я прописал структуру вручную, задав отношения между таблицами и индексы.
+
 [Создание структуры базы данных](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/Создание%20базы.sql)
+
 После чего я воспользовался сервисом для наполнения данными - http://filldb.info. В результате получился [скрипт](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/Наполнение%20данными.sql), включающий создание структуры и наполнение данными.
+
+При помощи автоматической генерации в DBeaver была создана ERD-диаграмма.
+
+![ERD-диаграмма DBeaver](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/erd_with_dbeaver.png?raw=true)
+
+Также я воспользовался сторонним сервисом для создания [ERD-диаграммы](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/erd_with_web.pdf).
+
