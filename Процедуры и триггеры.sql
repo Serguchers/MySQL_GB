@@ -21,9 +21,9 @@ status enum('teacher', 'student'), group_id int)
 
 drop procedure if exists mark_update;
 delimiter //
-create procedure mark_update(id int, new_mark int)
+create procedure mark_update(id int, new_mark int, task int)
 	begin
-		update marks set value = new_mark where user_id = id;
+		update marks set value = new_mark where user_id = id AND task = task_id;
 	end//
 
 

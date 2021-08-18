@@ -28,8 +28,6 @@
 После заполнения данными, чтобы избежать некоторых нелогичных моментов(студент не может быть создателем курсов и пользователи не отправляют сообщения сами себе)
 я написал 2 процедуры.
 ~~~sql
-delimiter //
-drop procedure if exists edit_courses//
 create procedure edit_courses ()
 	begin
 			declare i int default 1;
@@ -45,8 +43,6 @@ create procedure edit_courses ()
 ~~~
 
 ~~~sql
-delimiter //
-drop procedure if exists edit_messages//
 create procedure edit_messages ()
 	begin
 		declare i int default 1;
@@ -119,6 +115,53 @@ where speciality.name = 'aut';
 * Задания, опубликованные учителями;
 * Средняя оценка за задание;
 * Структура специальностей;
-Ознакомиться со скриптом можно [здесь]().
+Ознакомиться со скриптом можно [здесь](https://github.com/Serguchers/MySQL_GB/blob/Final_course_project/Представления.sql).
+
+---
+
+## Хранимые процедуры и триггеры ##
+Последним шагом стало написание процедур и триггеров.
+
+Хотелось бы более подробно остановиться на процедурах. 
+
+Первая процедура позволяет актуализировать базу пользователей, удалив записи старше заданного года.
+~~~sql
+create procedure actualize_users (in `year` int)
+	begin
+		delete  from users 
+		where id in(select id from profiles where year(created_at) < `year`);
+	end//
+~~~
+Следующая процедура позволяет создать пользователя и сразу же привязать его профиль.
+~~~sql
+create procedure user_creation 
+(firstname varchar(50), lastname varchar(50), email varchar(100), pass_hash varchar(255),
+phone int, gender enum('M', 'F'), birthday date, nationality enum('local', 'non-local', 'non-resident'),
+status enum('teacher', 'student'), group_id int)
+	begin
+		insert into users(firstname, lastname, email, password_hash, phone_number) values
+			(firstname, lastname, email, password_hash, phone);
+		insert into profiles(id, gender, birthday, nationality, status, group_id) values 
+			((select id from users where phone_number = phone), gender, birthday, nationality, status, group_id);
+	end//
+~~~
+И крайняя процедура позволяет обновить оценку заданного пользователя за задание.
+~~~
+create procedure mark_update(id int, new_mark int, task int)
+	begin
+		update marks set value = new_mark where user_id = id AND task = task_id;
+	end//
+~~~
+Все триггеры схожи по смыслу, они позволяют задать ограничения на обновления и вставку значений в конкретную таблицу, например:
+~~~sql
+create trigger group_constraint before insert on profiles
+for each row 
+	begin 
+		if new.group_id is null then 
+			signal sqlstate '45000' set message_text = 'group_id cannot be null';
+		end if;
+	end//
+~~~
+Мы не сможем вставить пользователя, не указав его группу.
 
 
