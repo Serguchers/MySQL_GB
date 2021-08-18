@@ -27,7 +27,8 @@
 ## Работа с данными ##
 После заполнения данными, чтобы избежать некоторых нелогичных моментов(студент не может быть создателем курсов и пользователи не отправляют сообщения сами себе)
 я написал 2 процедуры.
-```delimiter //
+~~~sql
+delimiter //
 drop procedure if exists edit_courses//
 create procedure edit_courses ()
 	begin
@@ -40,9 +41,11 @@ create procedure edit_courses ()
 				where creator_id not in(select id from profiles where status ='teacher') limit 1;
 				set i := i + 1;
 		end  while;
-	end //```
+	end //
+~~~
 
-```delimiter //
+~~~sql
+delimiter //
 drop procedure if exists edit_messages//
 create procedure edit_messages ()
 	begin
@@ -54,5 +57,6 @@ create procedure edit_messages ()
 			where from_user_id = to_user_id limit 1;
 			set i = i + 1;
 		end while;
-	end//```
+	end//
+~~~
 
