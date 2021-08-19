@@ -1,0 +1,5 @@
+redis-cli
+HMSET email 'sergei' 'sergei@gmail.com' 'andrew' 'andrew@gmail.com' 'olga' 'olga@gmail.com'
+HMSET user 'sergei@gmail.com' 'sergei' 'andrew@gmail.com' 'andrew' 'olga@gmail.com' 'olga'
+HGETALL email
+HGETALL user

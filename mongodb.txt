@@ -1,0 +1,9 @@
+use shop
+db.createCollection('catalogs')
+db.createCollection('products')
+db.catalogs.insert({name: 'Процессоры'})
+db.catalogs.insert({name: 'Материнские платы'})
+db.catalogs.insert({name: 'Видеокарты'})
+db.products.insert({name: 'Intel core', catalog_id: ObjectId("611e804619fc22851b6bdc0b"), price: 7890})
+db.products.insert({name: 'AMD FX', catalog_id: ObjectId("611e804619fc22851b6bdc0b"), price: 4790})
+db.products.insert({name: 'Gigabyte H310M', catalog_id: ObjectId("611e807919fc22851b6bdc0d"), price: 9180})
